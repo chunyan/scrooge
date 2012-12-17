@@ -21,7 +21,7 @@ public {{/public}}{{^public}}static {{/public}}class {{StructName}} implements T
   private static final TStruct STRUCT = new TStruct("{{StructName}}");
 {{#fields}}
   private static final TField {{fieldConst}} = new TField("{{fieldName}}", TType.{{constType}}, (short) {{id}});
-  final {{#optional}}ScroogeOption<{{fieldType}}>{{/optional}}{{^optional}}{{primitiveFieldType}}{{/optional}} {{fieldName}};
+  private final {{#optional}}ScroogeOption<{{fieldType}}>{{/optional}}{{^optional}}{{primitiveFieldType}}{{/optional}} {{fieldName}};
 {{/fields}}
 
   public enum Field {
@@ -31,7 +31,7 @@ public {{/public}}{{^public}}static {{/public}}class {{StructName}} implements T
 
   }
 
-  final Field setField;
+  private final Field setField;
 
   public static ThriftStructCodec<{{StructName}}> CODEC = new ThriftStructCodec<{{StructName}}>() {
     public {{StructName}} decode(TProtocol _iprot) throws org.apache.thrift.TException {
@@ -98,26 +98,12 @@ public {{/public}}{{^public}}static {{/public}}class {{StructName}} implements T
   }
 
 {{#fields}}
-  public static {{StructName}} new{{FieldName}}({{primitiveFieldType}} {{fieldName}}) {
+  public static {{StructName}} {{fieldName}}({{primitiveFieldType}} {{fieldName}}) {
     return new {{StructName}}(Field.{{FIELD_NAME}}, {{fieldName}});
   }
 {{/fields}}
 
-  public Field getSetField() {
-    return this.setField;
-  }
-
-  public Object getValue() {
-    switch (setField) {
 {{#fields}}
-      case {{FIELD_NAME}}:
-        return this.{{fieldName}};
-{{/fields}}
-    }
-    return null;
-  }
-{{#fields}}
-
 {{#hasGetter}}
   public {{primitiveFieldType}} {{getName}}() {
     return (this.setField == Field.{{FIELD_NAME}} ? this.{{fieldName}} : null);

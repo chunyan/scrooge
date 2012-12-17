@@ -436,7 +436,7 @@ class JavaGeneratorSpec extends SpecificationWithJUnit with EvalHelper with JMoc
         }
 
         "instantiate" in {
-          Bird.newRaptor(null) must throwA[NullPointerException]
+          Bird.raptor(null) must throwA[NullPointerException]
         }
       }
 
@@ -448,7 +448,7 @@ class JavaGeneratorSpec extends SpecificationWithJUnit with EvalHelper with JMoc
             endRead(protocol)
           }
 
-          Bird.decode(protocol) mustEqual Bird.newHummingbird("Ruby-Throated")
+          Bird.decode(protocol) mustEqual Bird.hummingbird("Ruby-Throated")
         }
 
         "write" in {
@@ -458,7 +458,7 @@ class JavaGeneratorSpec extends SpecificationWithJUnit with EvalHelper with JMoc
             endWrite(protocol)
           }
 
-          Bird.newOwletNightjar("foo").write(protocol)
+          Bird.owlet_nightjar("foo").write(protocol)
         }
       }
 
@@ -490,7 +490,7 @@ class JavaGeneratorSpec extends SpecificationWithJUnit with EvalHelper with JMoc
             endRead(protocol)
           }
 
-          Bird.decode(protocol) mustEqual Bird.newRaptor(new Raptor(false, "peregrine"))
+          Bird.decode(protocol) mustEqual Bird.raptor(new Raptor(false, "peregrine"))
         }
 
         "write" in {
@@ -504,7 +504,7 @@ class JavaGeneratorSpec extends SpecificationWithJUnit with EvalHelper with JMoc
             endWrite(protocol)
           }
 
-          Bird.newRaptor(new Raptor(true, "Tyto alba")).write(protocol)
+          Bird.raptor(new Raptor(true, "Tyto alba")).write(protocol)
         }
       }
 
@@ -520,7 +520,7 @@ class JavaGeneratorSpec extends SpecificationWithJUnit with EvalHelper with JMoc
             endRead(protocol)
           }
 
-          Bird.decode(protocol) mustEqual Bird.newFlock(Utilities.makeList("starling", "kestrel", "warbler"))
+          Bird.decode(protocol) mustEqual Bird.flock(Utilities.makeList("starling", "kestrel", "warbler"))
         }
 
         "write" in {
@@ -534,7 +534,7 @@ class JavaGeneratorSpec extends SpecificationWithJUnit with EvalHelper with JMoc
             endWrite(protocol)
           }
 
-          Bird.newFlock(Utilities.makeList("starling", "kestrel", "warbler")).write(protocol)
+          Bird.flock(Utilities.makeList("starling", "kestrel", "warbler")).write(protocol)
         }
       }
     }
